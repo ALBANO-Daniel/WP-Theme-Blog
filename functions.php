@@ -4,10 +4,23 @@ function zzz_theme_support(){
     // Adds dynamic title tag support
     // as long as i have the wp_head() on view page
     add_theme_support('title-tag');
-
+    add_theme_support('custom-logo');  // theme>customize>changeLogo
+    add_theme_support('post-thumbnails'); // add section 'featured image' in the post edition dashboard
+    // thumbnail size can be edit in settings
 }
-
 add_action('after_setup_theme', 'zzz_theme_support');
+
+// function to make the menu 
+function zzz_menus(){
+
+    // locations to the menu CSS = key(menu location name) => value 
+    $locations = array(
+        'primary' => "Desktop Primary Left Sidebar",
+        'footer' => "Footer Menu Items",
+    );
+    register_nav_menus($locations);
+}
+add_action('init', 'zzz_menus');
 
 
 function zzz_register_styles(){
@@ -19,7 +32,6 @@ function zzz_register_styles(){
     wp_enqueue_style('zzz-bootstrap',  "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css", array(), '4.4.1', 'all');
 
 };
-
 add_action('wp_enqueue_scripts', 'zzz_register_styles');
 
 
@@ -33,7 +45,6 @@ function zzz_register_scripts(){
     wp_enqueue_script('zzz-script', get_template_directory_uri() . "/assets/js/main.js", array(), $version, true);
     
 };
-
 add_action('wp_enqueue_scripts', 'zzz_register_scripts');
 
 ?>

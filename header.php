@@ -19,30 +19,44 @@
 
 <body>
     <header class="header text-center">
-        <a class="site-title pt-lg-4 mb-0" href="index.html">SiteName.dev</a>
+        
+        <a class="site-title pt-lg-4 mb-0" href="index.html">
+
+            <?php echo get_bloginfo('name'); // site name input ?>
+            
+        </a>
+
         <nav class="navbar navbar-expand-lg navbar-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div id="navigation" class="collapse navbar-collapse flex-column">
-                <img class="mb-3 mx-auto logo" src="images/logo.png" alt="logo">
-                <ul class="navbar-nav flex-column text-sm-center text-md-left">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html"><i class="fas fa-home fa-fw mr-2"></i>Blog Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="post.html"><i class="fas fa-file-alt fa-fw mr-2"></i>Blog Post</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="page.html"><i class="fas fa-file-image fa-fw mr-2"></i>Blog Page</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="archive.html"><i class="fas fa-archive fa-fw mr-2"></i>Blog Archive</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary" href="contact.html"><i class="fas fa-envelope fa-fw mr-2"></i>Contact Us</a>
-                    </li>
-                </ul>
+                <?php
+                // get the functions.php  the_custom_logo func from add_theme_support hook
+                if(function_exists('the_custom_logo')){
+                    // codex 
+                    $custom_logo_id = get_theme_mod('custom_logo');
+                    //array $logo
+                    $logo = wp_get_attachment_image_src($custom_logo_id);  // all info of img SRC
+                    // instead of   the_custom_logo();
+                }
+                ?>
+                <img class="mb-3 mx-auto logo" src="<?= $logo[0] ?>" alt="logo">
+                
+                <?php
+                    wp_nav_menu(
+                        array(
+                            'menu' => 'primary',   // connect to the primary in nav_menus
+                            'container' => '',
+                            'theme_location' => 'primary', // location on the nav_menus function
+                            // %3$s == ref to menu itens ????   
+                            // id and class empty to overide the injected from WP
+                            // declares template for the list in menu
+                            'items_wrap' => '<ul id="" class="navbar-nav flex-column text-sm-center text-md-left" >%3$s</ul>' 
+                        )
+                    );
+                ?>
+
                 <hr>
                 <ul class="social-list list-inline py-3 mx-auto">
                     <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
