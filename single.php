@@ -10,7 +10,13 @@
         while(have_posts()){
 
             the_post();
-            the_content();
+
+            // instead of :
+            // the_content();
+
+            get_template_part('template-parts/content', 'article'); // content-article.php 
+            // 1st param = file path and file name, get the folder and file initials || if hiffen after content(2nd param).php
+            // 2nd = type  ( hiffened version )  ex: content-type.php
         }
     }
 
