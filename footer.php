@@ -1,5 +1,5 @@
         <footer class="footer text-center py-2 theme-bg-dark">
-            <p class="copyright"><a href="https://youtube.com/FollowAndrew">Tupanetwork</a></p>
+            <p class="copyright"><a href="https://github.com/tupan-et-work">Tupanetwork</a></p>
             <?php
                 dynamic_sidebar('footer-1');
             ?>
